@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  
+  get '/', to: 'posts#index'
+
   devise_for :users
   resources :posts
 
