@@ -1,7 +1,7 @@
 <%= form_with(model: post, local: true) do |form| %>
   <% if post.errors.any? %>
     <div id="error_explanation" class="alert alert-danger">
-      <h2><%= pluralize(post.errors.count, "error") %> prohibited this post from being saved:</h2>
+      <h5><%= t('common.errors') %></h5>
 
       <ul>
       <% post.errors.full_messages.each do |message| %>
@@ -22,7 +22,7 @@
   </div>
  
   <div class="actions form-group">
-    <%= form.submit 'Save', class: 'btn btn-primary' %>
-    <%= link_to 'Back', :back, class: 'btn btn-outline-secondary' %>
+    <%= form.submit t('common.save'), class: 'btn btn-primary' %>
+    <%= link_to t('common.back'), :back, class: 'btn btn-outline-secondary' %>
   </div>
 <% end %>
