@@ -9,7 +9,8 @@
 			<%= link_to t('common.delete'), post_path(post), method: :delete, data: { confirm: 'Are you sure?' } %>
 		</small>
 	</section>
-	<section class="post-content">
+	<section class="post-content clearfix">
+		<%= image_tag post.image.url(:thumb), class: 'img-thumbnail thumb' if post.image? %>
 		<%= post.content %>
 	</section>
 </article>

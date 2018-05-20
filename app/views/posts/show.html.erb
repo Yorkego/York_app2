@@ -10,6 +10,7 @@
 		</small>
 	</section>
 	<section class="post-content">
+		<%= image_tag @post.image.url(:large), class: 'img-show' if @post.image? %>
 		<%= @post.content %>
 	</section>
 </article>
