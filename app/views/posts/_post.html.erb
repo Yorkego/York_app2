@@ -9,8 +9,13 @@
 			<%= link_to t('common.delete'), post_path(post), method: :delete, data: { confirm: 'Are you sure?' } %>
 		</small>
 	</section>
+
 	<section class="post-content clearfix">
 		<%= image_tag post.image.url(:thumb), class: 'img-thumbnail thumb' if post.image? %>
 		<%= post.content %>
+	</section>
+
+	<section class="footer-content">		
+		<%= raw post.tags.map(&:name).map{ |t| link_to t, tag_path(t), class: 'badge badge-primary' }.join(' ') %>
 	</section>
 </article>
