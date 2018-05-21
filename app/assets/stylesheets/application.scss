@@ -13,6 +13,7 @@
 
  *= require_tree .
  *= require_self
+ *= require trix
  */
  // Custom bootstrap variables must be set or imported *before* bootstrap.
 @import "bootstrap";

@@ -71,3 +71,6 @@ gem 'sprockets-rails'
 #for images
 gem 'carrierwave', '~> 1.0'
 gem "mini_magick"
+
+#WYSIWYG editor
+gem 'trix'
