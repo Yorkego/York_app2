@@ -74,3 +74,6 @@ gem "mini_magick"
 
 #WYSIWYG editor
 gem 'trix'
+
+#page pagination
+gem 'will_paginate', '~> 3.1.0'
