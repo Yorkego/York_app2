@@ -8,6 +8,9 @@ ru:
     sing_up: 'Регистрация'
     log_in: 'Вход'
     log_out: 'Выход'
+  will_paginate:
+    previous_label: '&larr; Туда'
+    next_label: 'Сюда &rarr;'
   posts:
     index:
       title: 'Статьи'
