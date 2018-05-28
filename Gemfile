@@ -77,3 +77,6 @@ gem 'trix'
 
 #page pagination
 gem 'will_paginate', '~> 3.1.0'
+
+#posgresql database
+gem 'pg', '~> 0.18'
