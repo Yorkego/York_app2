@@ -23,3 +23,4 @@
 # For further information see the following documentation:
 # https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy-Report-Only
 # Rails.application.config.content_security_policy_report_only = true
+ config.secret_key = 'd96f98414886e926221de5b01574cf049640689bc53f90b9d55893af0d64ac805a611aa79afc38c23c63274a4c5ed4967ce5b3e402342bf1bf66d6c2e67563f3'
