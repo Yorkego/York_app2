@@ -3,6 +3,10 @@
 		<h2><%= link_to post.title, post_path(post) %></h2>
 		<small>
 			<time><%= post.created_at.to_date.strftime("%d %B, %Y")%></time>
+			posted by 
+			<% if post.user %>
+			  <%= link_to post.user.username, edit_post_path(post) %>
+			<% end %>
 			|
 			<%= link_to t('common.edit'), edit_post_path(post) %>
 			|
