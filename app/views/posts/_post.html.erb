@@ -3,14 +3,13 @@
 		<h2><%= link_to post.title, post_path(post) %></h2>
 		<small>
 			<time><%= post.created_at.to_date.strftime("%d %B, %Y")%></time>
-			posted by 
-			<% if post.user %>
-			  <%= link_to post.user.username, edit_post_path(post) %>
+			posted by <%= link_to post.user.username, edit_post_path(post) %>	
+			<% if current_user && post.user.username == current_user.username  %>
+				|
+				<%= link_to t('common.edit'), edit_post_path(post) %>
+				|
+				<%= link_to t('common.delete'), post_path(post), method: :delete, data: { confirm: 'Are you sure?' } %>
 			<% end %>
-			|
-			<%= link_to t('common.edit'), edit_post_path(post) %>
-			|
-			<%= link_to t('common.delete'), post_path(post), method: :delete, data: { confirm: 'Are you sure?' } %>
 		</small>
 	</section>
 
