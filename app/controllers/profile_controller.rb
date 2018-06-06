@@ -2,10 +2,10 @@ class ProfileController < ApplicationController
 	 
 
   def show
-  	if Profile.find(params[:user_id])
-  		@profile = Profile.find(params[:user_id])
-  	else
+  	if User.find(params[:id]).profile == nil  		
   		@profile = User.find(params[:id]).build_profile
+  	else
+  		@profile = Profile.find(params[:id])
   	end  	
   end
 
