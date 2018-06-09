@@ -32,10 +32,8 @@
 
 							<div class="space space-4"></div>
 
-							<a href="#" class="btn btn-sm btn-block btn-success">
-								<i class="ace-icon fa fa-plus-circle bigger-120"></i>
-								<span class="bigger-110">Add as a friend</span>
-							</a>
+							
+							<%= link_to "Add Friend",  friendships_invite_path(@user), class: 'btn btn-sm btn-block btn-success' %>
 
 							<a href="#" class="btn btn-sm btn-block btn-primary">
 								<i class="ace-icon fa fa-envelope-o bigger-110"></i>

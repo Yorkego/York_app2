@@ -1,10 +1,12 @@
 Rails.application.routes.draw do
   
   scope "(:locale)", locale: /#{I18n.available_locales.join("|")}/ do
-	  root "posts#index"	  
+	  root "posts#index"
+
+	  get "friendships/invite"	  
 
 	  devise_for :users
-	  resources :posts
+	  resources :posts	  
 	  resources :users, only: [:show]	  
 	  resources :tags, only: [:show]	    
 	end
