@@ -3,7 +3,7 @@
 		<h2><%= link_to post.title, post_path(post) %></h2>
 		<small>
 			<time><%= post.created_at.to_date.strftime("%d %B, %Y")%></time>
-			posted by <%= link_to post.user.username, edit_post_path(post) %>	
+			posted by <%= link_to post.user.username, user_path(post.user.id) %>	
 			<% if current_user && post.user.username == current_user.username  %>
 				|
 				<%= link_to t('common.edit'), edit_post_path(post) %>
