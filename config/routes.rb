@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   scope "(:locale)", locale: /#{I18n.available_locales.join("|")}/ do
 	  root "posts#index"
 
-	  get "users/invite"	  
+	  post ":id/users/invite", to: 'users#invite'
 
 	  devise_for :users
 	  resources :posts	  

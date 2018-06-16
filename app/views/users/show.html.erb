@@ -33,7 +33,7 @@
 							<div class="space space-4"></div>
 
 							
-							<%= link_to "Add Friend",  users_invite_path(@user), class: 'btn btn-sm btn-block btn-success' %>
+							<%= link_to "Add Friend", { controller: "users", action: "invite"}, class: 'btn btn-sm btn-block btn-success', method: :post %>
 
 							<a href="#" class="btn btn-sm btn-block btn-primary">
 								<i class="ace-icon fa fa-envelope-o bigger-110"></i>

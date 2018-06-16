@@ -4,7 +4,8 @@ class UsersController < ApplicationController
   end
 
   def invite
+   	@user = User.find(params[:id])
   	current_user.invite @user		
-		render user_path(@user.id), success: 'Added friend.'
+		redirect_to @user, success: 'Added friend.'
   end
 end
