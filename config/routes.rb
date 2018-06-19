@@ -5,7 +5,11 @@ Rails.application.routes.draw do
 
 	  resources :friendships, :only => [:index, :update]
 	  devise_for :users
-	  resources :posts	  
+	  resources :posts do
+	  	member do
+	  		put "like", to: "posts#upvote"
+	    end
+	  end	  
 	  resources :users 
 	  resources :tags, only: [:show]	    
 	end

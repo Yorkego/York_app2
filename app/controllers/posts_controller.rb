@@ -1,5 +1,5 @@
 class PostsController < ApplicationController
-  before_action :set_post, only: [:show, :edit, :update, :destroy]
+  before_action :set_post, only: [:show, :edit, :update, :destroy, :upvote]
   before_action :authenticate_user!, only: [:new, :create, :destroy]
 
   # GET /posts
@@ -61,6 +61,11 @@ class PostsController < ApplicationController
       format.html { redirect_to posts_url, success: 'Post was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+
+  def upvote
+    @post.upvote_by current_user
+    redirect_back fallback_location: root_path
   end
 
   private
