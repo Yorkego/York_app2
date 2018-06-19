@@ -1,4 +1,5 @@
 class User < ApplicationRecord
+	 
 	include Amistad::FriendModel
 	has_many :posts	
   # Include default devise modules. Others available are:
