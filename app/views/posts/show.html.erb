@@ -21,7 +21,7 @@
 		<span class="float-right">
 			<%= link_to (like_post_path(@post)), method: :put, class: 'btn' do %>
 				<span class="glyphicon">
-					<p style="font-size: 1.4em">&#9829;  <%= @post.get_upvotes.size %></p>
+					<p>&#9829;  <%= @post.get_upvotes.size %></p>
 				</span>
 			<% end %>
 		</span>

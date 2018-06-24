@@ -8,6 +8,14 @@ class Post < ApplicationRecord
 
 	validates :title, :content, presence: true
 
+	def self.search(search)
+	  if search
+	    where("title ilike :q or content ilike :q", q: "%#{search}%")	    
+	  else
+	    all
+	  end
+	end
+
 	def all_tags
 		self.tags.map(&:name).join(', ')
 	end
