@@ -1,25 +1,29 @@
 class FriendshipsController < ApplicationController
-	ALLOWED_FRIENDSHIP_ACTIONS = %w('invite' 'approve' 'remove_friendship' 'block', 'unblock')
-
-  before_action :authenticate_user!
-
-  def index
-    @friends = current_user.friends
-    @pending_invited_by = current_user.pending_invited_by
-    @pending_invited = current_user.pending_invited
+  def create
+     @friendship = current_user.friendships.build(friend_id: params[:friend_id])
+    if @friendship.save
+      flash[:notice] = "Friend requested."
+      redirect_back(fallback_location: root_path)
+    else
+      flash[:error] = "Unable to request friendship."
+      redirect_back(fallback_location: root_path)
+    end
   end
 
   def update
-    @friend = User.find(params[:id])
-    current_user.send(friendship_action, @friend) if friendship_action
-    redirect_to  @friend
+    @friendship = Friendship.find_by(id: params[:id])
+    @friendship.update(accepted: :true)
+    if @friendship.save
+      redirect_to root_url, notice: "Successfully confirmed friend!"
+    else
+      redirect_to root_url, notice: "Sorry! Could not confirm friend!"
+    end
   end
 
-private
-
-  def friendship_action
-    if fa = params[:friendship_action]
-      return fa if ALLOWED_FRIENDSHIP_ACTIONS.include?(fa)
-    end
+  def destroy
+    @friendship = Friendship.find_by(id: params[:id])
+    @friendship.destroy
+    flash[:notice] = "Removed friendship."
+    redirect_back(fallback_location: root_path)
   end
 end

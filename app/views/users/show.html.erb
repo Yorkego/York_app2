@@ -7,7 +7,7 @@
 						<i class="green ace-icon fa fa-user bigger-120"></i>
 						Profile
 					</a>
-				</li>				
+				</li>
 
 				<li>
 					<a data-toggle="tab" href="#friends">
@@ -15,7 +15,7 @@
 						Friends
 					</a>
 				</li>
-				
+
 			</ul>
 
 			<div class="tab-content no-border padding-24">
@@ -27,32 +27,21 @@
 									<%= image_tag @user.image,  width: '150px', class: 'editable img-responsive', id: "avatar2" %>
 								<% else %>
 									<%= image_tag "default_image.jpg",  width: '150px', class: 'editable img-responsive', id: "avatar2" %>
-								<% end %> 
+								<% end %>
 							</span>
 
 							<div class="space space-4"></div>
 
-							
-							<%= link_to "Add Friend", friendship_path(id: @user.id, friendship_action: 'invite'), method: :patch, class: 'btn btn-sm btn-block btn-success' %>
 
-							
-						  <% if @user == current_user %>
-						    <%= link_to 'Edit Profile', edit_user_path(@user.username),class: 'btn edit-button' %>
-						  <% elsif current_user.friend_with? @user %>Already Friends!
-						    <%= button_to "Delete!", friendship_path(id: @user.id, friendship_action: 'remove_friendship'), method: :patch, class: "btn btn-primary" %>
-						  <% elsif current_user.invited? @user %>Friend request sent!
-						    <%= button_to "Unsend!", friendship_path(id: @user.id, friendship_action: 'unsend'), method: :patch, class: "btn btn-small btn-primary" %>
-						  <% elsif current_user.invited_by? @user %>
-						    <%= button_to "Accept!", friendship_path(id: @user.id, friendship_action: 'approve'), method: :patch, class: "btn btn-small btn-primary" %>
-						    <%= button_to "Reject!", friendship_path(id: @user.id, friendship_action: 'remove_friendship'), method: :patch, class: "btn btn-small btn-primary" %>
-						  <% else %>
-						    <%= button_to "Request Friend", friendship_path(id: @user.id, friendship_action: 'invite'), method: :patch, class: "btn btn-primary" %>
-						  <% end %>
+							<%= link_to "Add Friend",friendships_path(friend_id: @user), method: :post, class: 'btn btn-sm btn-block btn-success' %>
+
+
+
 
 						</div><!-- /.col -->
 
 						<div class="col-xs-12 col-sm-9">
-							
+
 
 							<div class="profile-user-info">
 								<div class="profile-info-row">
@@ -123,25 +112,31 @@
 						</div><!-- /.col -->
 					</div><!-- /.row -->
 
-										
+
 				</div><!-- /#home -->
 
-				
+
 				<div id="friends" class="tab-pane">
 					<div class="profile-users clearfix">
+						<h3>Friends request</h3>
 						<ul>
-							<% @user.invited.each do |friend| %>
-								<li>
-									<h3> <%= friend.id %></h3>
-								</li>
-							<% end %>
+					    <% current_user.requested_friendships.each do |request| %>
+						    <li>
+						      <%= request.username %>
+						      <%= link_to "Accept",  friendship_path(id: request.id), method: "put" %>
+						      <%= link_to "Decline", friendship_path(id: request.id), method: :delete %>
+						    </li>
+						  <% end %>
 						</ul>
+
+						<h3>Friends</h3>
 						<ul>
-							<% @user.friends.each do |friend| %>
-								<li>
-									<h3> <%= friend.id %></h3>
-								</li>
-							<% end %>
+					    <% current_user.friends.each do |friend| %>
+						    <li>
+						      <%= friend.username %>
+						      <%= link_to "Remove",  friendship_path(id: friend.id), method: :delete %>
+						    </li>
+						  <% end %>
 						</ul>
 
 
@@ -150,9 +145,9 @@
 
 					<div class="hr hr10 hr-double"></div>
 
-					
+
 				</div><!-- /#friends -->
-				
+
 			</div>
 		</div>
 	</div>

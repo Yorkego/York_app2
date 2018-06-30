@@ -59,7 +59,7 @@ group :test do
   gem 'chromedriver-helper'
 end
 
-group :production do 
+group :production do
   gem 'rails_12factor'
 end
 
@@ -71,7 +71,7 @@ gem 'devise'
 
 gem 'bootstrap-sass', '~> 3.3.7'
 gem 'sass-rails', '>= 3.2'
-gem 'bootstrap', '~> 4.1.1'
+gem 'autoprefixer-rails'
 gem 'jquery-rails'
 gem 'sprockets-rails'
 
@@ -93,3 +93,5 @@ gem 'amistad'
 
 #add likes
 gem 'acts_as_votable', '~> 0.11.1'
+
+

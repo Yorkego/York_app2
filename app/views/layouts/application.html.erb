@@ -51,16 +51,16 @@
               <%= link_to "En", { locale: :en }, class: "nav-link" %>
             </li>
           </ul>
-        
-        <%= form_tag posts_path, method: :get, class: 'form-inline my-2 my-lg-0' do %>    
+
+        <%= form_tag posts_path, method: :get, class: 'form-inline my-2 my-lg-0' do %>
             <%= text_field_tag :search, params[:search], placeholder: "Search Posts", class: "form-control mr-sm-2" %>
-            <%= submit_tag "Search", :name => nil, class: "btn btn-outline-success my-2 my-sm-0"%>          
+            <%= submit_tag "Search", :name => nil, class: "btn btn-outline-success my-2 my-sm-0"%>
         <% end %>
       </div>
     </nav>
 
-       
-    
+
+
     <div class="container main">
       <div class="row">
         <div class="col-md-12">
@@ -78,7 +78,7 @@
           <%= yield %>
         </div>
         <div class="col-md-3">
-          
+
 
           <div class="tag_cloud">
             <h2><%= t('activerecord.attributes.post.all_tags')%></h2>
@@ -87,7 +87,7 @@
             <% end %>
           </div>
 
-          
+
         </div>
       </div>
 
