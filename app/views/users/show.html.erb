@@ -69,6 +69,7 @@
 									</div>
 								</div>
 
+
 								<div class="profile-info-row">
 									<div class="profile-info-name"> Last Online </div>
 
@@ -118,26 +119,60 @@
 
 				<div id="friends" class="tab-pane">
 					<div class="profile-users clearfix">
-						<h3>Friends request</h3>
-						<ul>
-					    <% current_user.requested_friendships.each do |request| %>
-						    <li>
-						      <%= request.username %>
-						      <%= link_to "Accept",  friendship_path(id: request.id), method: "put" %>
-						      <%= link_to "Decline", friendship_path(id: request.id), method: :delete %>
-						    </li>
-						  <% end %>
-						</ul>
 
-						<h3>Friends</h3>
-						<ul>
-					    <% current_user.friends.each do |friend| %>
-						    <li>
-						      <%= friend.username %>
-						      <%= link_to "Remove",  friendship_path(id: friend.id), method: :delete %>
-						    </li>
-						  <% end %>
-						</ul>
+
+						<% if current_user == @user %>
+							<h3>Friends request</h3>
+							<ul class="list-inline">
+						    <% current_user.requested_friendships.each do |request| %>
+							    <li>
+							      <%= request.username %>
+							      <%= link_to "Accept",  friendship_path(id: request.id), method: "put" %>
+							      <%= link_to "Decline", friendship_path(id: request.id), method: :delete %>
+							    </li>
+							  <% end %>
+							</ul>
+						<% end %>
+
+
+
+						<div class="container bootstrap snippets">
+							<div class="center-heading">
+							    <h2>Friends</h2>
+							    <span class="center-line"></span>
+							</div>
+
+							<div class="row">
+							    <div class="col-md-10 col-md-offset-1">
+							        <div class="row">
+							        	<% @user.friends.each do |friend| %>
+							            <div class="col-sm-4 margin40">
+							                <div class="item-img-wrap ">
+
+							                    <% if friend.image %>
+																		<%= image_tag friend.image,  width: '150px', class: 'img-responsive' %>
+																	<% else %>
+																		<%= image_tag "default_image.jpg", class: 'img-responsive' %>
+																	<% end %>
+							                    <div class="item-img-overlay">
+							                        <a href="#">
+							                            <span></span>
+							                        </a>
+							                    </div>
+							                </div>
+							                <div class="work-desc">
+							                    <h3><a><%= friend.username %></a></h3>
+							                    <span><%= link_to "Remove",  friendship_path(id: friend.id), method: :delete %></span>
+							                </div><!--work desc-->
+							            </div><!--speakers col end-->
+							            <% end %>
+
+
+
+							        </div><!--speakers row end-->
+							    </div>
+							</div>
+							</div>
 
 
 
