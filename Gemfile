@@ -88,10 +88,9 @@ gem 'will_paginate', '~> 3.1.0'
 #posgresql database
 gem 'pg'
 
-#add to friend
-gem 'amistad'
 
 #add likes
 gem 'acts_as_votable', '~> 0.11.1'
 
-
+#admin panel
+gem 'rails_admin'
