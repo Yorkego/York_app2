@@ -31,7 +31,9 @@
 							</span>
 
 							<div class="space space-4"></div>
-								<% if current_user != @user %>
+								<% if current_user == @user %>
+									<%= link_to "Edit profile", edit_user_registration_path(id: @user.id), class: 'btn btn-sm btn-block btn-success' %>
+								<% else %>
 									<%= link_to "Add Friend",friendships_path(friend_id: @user), method: :post, class: 'btn btn-sm btn-block btn-success' %>
 								<% end %>
 

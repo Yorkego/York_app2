@@ -1,16 +1,17 @@
 class PostsController < ApplicationController
   before_action :set_post, only: [:show, :edit, :update, :destroy, :upvote]
-  before_action :authenticate_user!, only: [:new, :create, :destroy]
+  before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
+  before_action :check_autorization, only: [:edit, :update, :destroy]
 
   # GET /posts
   # GET /posts.json
-  def index    
+  def index
     @posts= Post.search(params[:search]).paginate(:page => params[:page], :per_page => 5)
   end
 
   # GET /posts/1
   # GET /posts/1.json
-  def show  
+  def show
   end
 
   # GET /posts/new
@@ -24,7 +25,7 @@ class PostsController < ApplicationController
 
   # POST /posts
   # POST /posts.json
-  def create    
+  def create
     @post = current_user.posts.build(post_params)
     @post.user_id = current_user.id
 
@@ -77,5 +78,11 @@ class PostsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def post_params
       params.require(:post).permit(:title, :content, :image, :all_tags)
+    end
+
+    def check_autorization
+      unless current_user == @post.user
+        redirect_to root_url, danger: 'You can edit and destroy only your posts'
+      end
     end
 end
