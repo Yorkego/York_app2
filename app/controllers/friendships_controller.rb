@@ -3,10 +3,10 @@ class FriendshipsController < ApplicationController
      @friendship = current_user.friendships.build(friend_id: params[:friend_id])
     if @friendship.save
       flash[:notice] = "Friend requested."
-      redirect_back(fallback_location: root_path)
+      redirect_back fallback_location: @user
     else
-      flash[:error] = "Unable to request friendship."
-      redirect_back(fallback_location: root_path)
+      flash[:error] = @friendship.errors.full_messages
+      redirect_back fallback_location: @user
     end
   end
 
@@ -14,9 +14,9 @@ class FriendshipsController < ApplicationController
     @friendship = Friendship.find_by(user_id: params[:id])
     @friendship.update(accepted: :true)
     if @friendship.save
-      redirect_to root_url, notice: "Successfully confirmed friend!"
+      redirect_back fallback_location: @user, notice: "Successfully confirmed friend!"
     else
-      redirect_to root_url, notice: "Sorry! Could not confirm friend!"
+      redirect_back fallback_location: @user, error: @friendship.errors.full_messages
     end
   end
 
@@ -24,6 +24,6 @@ class FriendshipsController < ApplicationController
     @friendship = Friendship.find_by(user_id: params[:id])
     @friendship.destroy
     flash[:notice] = "Removed friendship."
-    redirect_back(fallback_location: root_path)
+    redirect_back fallback_location: @user
   end
 end
