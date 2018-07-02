@@ -31,9 +31,9 @@
 							</span>
 
 							<div class="space space-4"></div>
-
-
-							<%= link_to "Add Friend",friendships_path(friend_id: @user), method: :post, class: 'btn btn-sm btn-block btn-success' %>
+								<% if current_user != @user %>
+									<%= link_to "Add Friend",friendships_path(friend_id: @user), method: :post, class: 'btn btn-sm btn-block btn-success' %>
+								<% end %>
 
 
 
@@ -162,7 +162,9 @@
 							                </div>
 							                <div class="work-desc">
 							                    <h3><a><%= friend.username %></a></h3>
-							                    <span><%= link_to "Remove",  friendship_path(id: friend.id), method: :delete %></span>
+							                    <% if current_user == @user %>
+							                   		<span><%= link_to "Remove",  friendship_path(id: friend.id), method: :delete %></span>
+							                   	<% end %>
 							                </div><!--work desc-->
 							            </div><!--speakers col end-->
 							            <% end %>
