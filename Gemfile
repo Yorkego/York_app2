@@ -94,3 +94,6 @@ gem 'acts_as_votable', '~> 0.11.1'
 
 #admin panel
 gem 'rails_admin'
+
+#soft delete data
+gem "paranoia", "~> 2.2"

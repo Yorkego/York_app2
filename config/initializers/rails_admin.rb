@@ -2,6 +2,7 @@ RailsAdmin.config do |config|
   config.authorize_with do
     unless current_user.admin == true
       redirect_to main_app.root_path, danger: 'You are not admin'
+    end
   end
 
   config.included_models = %w(User Post) # whatever models you want included in rails_admin
