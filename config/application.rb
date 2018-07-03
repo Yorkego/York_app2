@@ -17,6 +17,6 @@ module YorkApp
     # the framework and any gems in your application.
     config.timezone = 'Kyiv'
     config.i18n.available_locales = [:ru, :en]
-    config.i18n.default_locale = :ru
+    config.i18n.default_locale = :en
   end
 end
