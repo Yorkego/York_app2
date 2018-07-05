@@ -108,17 +108,17 @@
 							        	<% @user.friends.each do |friend| %>
 							            <div class="col-sm-4 margin40">
 							                <div class="item-img-wrap ">
+							                		<%= link_to user_path(id: friend.id) do %>
 
-							                    <% if friend.image %>
-																		<%= image_tag friend.image,  width: '150px', class: 'img-responsive' %>
-																	<% else %>
-																		<%= image_tag "default_image.jpg", class: 'img-responsive' %>
-																	<% end %>
-							                    <div class="item-img-overlay">
-							                        <a >
-							                            <span><%= link_to " ",  user_path(id: friend.id)  %></span>
-							                        </a>
-							                    </div>
+								                    <% if friend.image %>
+																			<%= image_tag friend.image,  width: '150px', class: 'img-responsive' %>
+																		<% else %>
+																			<%= image_tag "default_image.jpg", class: 'img-responsive' %>
+																		<% end %>
+								                    <div class="item-img-overlay">
+
+								                    </div>
+							                    <% end %>
 							                </div>
 							                <div class="work-desc">
 							                    <h3><a><%= friend.username %></a></h3>
