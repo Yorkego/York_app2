@@ -124,12 +124,11 @@
 
 
 						<% if current_user == @user %>
-							<h3>Friends request</h3>
 							<ul class="list-inline">
 						    <% current_user.requested_friendships.each do |request| %>
 							    <li>
-							      <%= request.username %>
-							      <%= link_to "Accept",  friendship_path(id: request.id), method: "put" %>
+							      <span><%= request.username %> want be your friend.</span>
+							      <%= link_to "Accept",  friendship_path(id: request.id), method: :put %>
 							      <%= link_to "Decline", friendship_path(id: request.id), method: :delete %>
 							    </li>
 							  <% end %>
@@ -157,8 +156,8 @@
 																		<%= image_tag "default_image.jpg", class: 'img-responsive' %>
 																	<% end %>
 							                    <div class="item-img-overlay">
-							                        <a href="#">
-							                            <span></span>
+							                        <a >
+							                            <span><%= link_to " ",  user_path(id: friend.id)  %></span>
 							                        </a>
 							                    </div>
 							                </div>
