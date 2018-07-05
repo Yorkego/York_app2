@@ -1,24 +1,9 @@
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
 <div id="user-profile-2" class="user-profile">
-		<div class="tabbable">
-			<ul class="nav nav-tabs padding-18">
-				<li class="active">
-					<a data-toggle="tab" href="#home">
-						<i class="green ace-icon fa fa-user bigger-120"></i>
-						Profile
-					</a>
-				</li>
 
-				<li>
-					<a data-toggle="tab" href="#friends">
-						<i class="blue ace-icon fa fa-users bigger-120"></i>
-						Friends
-					</a>
-				</li>
 
-			</ul>
 
-			<div class="tab-content no-border padding-24">
+			<div class="no-border padding-24">
 				<div id="home" class="tab-pane in active">
 					<div class="row">
 						<div class="col-xs-12 col-sm-3 center">
@@ -34,7 +19,7 @@
 								<% if current_user == @user %>
 									<%= link_to "Edit profile", edit_user_registration_path(id: @user.id), class: 'btn btn-sm btn-block btn-success' %>
 								<% else %>
-									<%= link_to "Add Friend",friendships_path(friend_id: @user), method: :post, class: 'btn btn-sm btn-block btn-success' %>
+									<%= link_to "Add Friend",friendships_path(friend_id: @user), method: :post, class: 'btn btn-sm btn-block btn-success', remote: true %>
 								<% end %>
 
 
@@ -76,42 +61,15 @@
 									<div class="profile-info-name"> Last Online </div>
 
 									<div class="profile-info-value">
-										<span>3 hours ago</span>
+										<span><%= time_ago_in_words(@user.current_sign_in_at) %> ago</span>
 									</div>
 								</div>
 							</div>
 
 							<div class="hr hr-8 dotted"></div>
 
-							<div class="profile-user-info">
-								<div class="profile-info-row">
-									<div class="profile-info-name"> Website </div>
 
-									<div class="profile-info-value">
-										<a href="#" target="_blank">www.alexdoe.com</a>
-									</div>
-								</div>
 
-								<div class="profile-info-row">
-									<div class="profile-info-name">
-										<i class="middle ace-icon fa fa-facebook-square bigger-150 blue"></i>
-									</div>
-
-									<div class="profile-info-value">
-										<a href="#">Find me on Facebook</a>
-									</div>
-								</div>
-
-								<div class="profile-info-row">
-									<div class="profile-info-name">
-										<i class="middle ace-icon fa fa-twitter-square bigger-150 light-blue"></i>
-									</div>
-
-									<div class="profile-info-value">
-										<a href="#">Follow me on Twitter</a>
-									</div>
-								</div>
-							</div>
 						</div><!-- /.col -->
 					</div><!-- /.row -->
 
@@ -128,8 +86,8 @@
 						    <% current_user.requested_friendships.each do |request| %>
 							    <li>
 							      <span><%= request.username %> want be your friend.</span>
-							      <%= link_to "Accept",  friendship_path(id: request.id), method: :put %>
-							      <%= link_to "Decline", friendship_path(id: request.id), method: :delete %>
+							      <%= link_to "Accept",  friendship_path(id: request.id), method: :put, remote: true %>
+							      <%= link_to "Decline", friendship_path(id: request.id), method: :delete, remote: true %>
 							    </li>
 							  <% end %>
 							</ul>
@@ -164,7 +122,7 @@
 							                <div class="work-desc">
 							                    <h3><a><%= friend.username %></a></h3>
 							                    <% if current_user == @user %>
-							                   		<span><%= link_to "Remove",  friendship_path(id: friend.id), method: :delete %></span>
+							                   		<span><%= link_to "Remove",  friendship_path(id: friend.id), method: :delete, remote: true %></span>
 							                   	<% end %>
 							                </div><!--work desc-->
 							            </div><!--speakers col end-->
@@ -187,5 +145,5 @@
 				</div><!-- /#friends -->
 
 			</div>
-		</div>
+
 	</div>
