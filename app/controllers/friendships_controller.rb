@@ -2,7 +2,6 @@ class FriendshipsController < ApplicationController
   def create
      @friendship = current_user.friendships.build(friend_id: params[:friend_id])
     if @friendship.save
-      binding.pry
       flash[:notice] = "Friend requested."
       redirect_back fallback_location: @user
     else
