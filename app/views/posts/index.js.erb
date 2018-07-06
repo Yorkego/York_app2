@@ -1,0 +1,3 @@
+jQuery('#posts-list').html("<%= escape_javascript( render @posts ) %>");
+jQuery('.pagination').html("<%= escape_javascript( will_paginate @posts, :container => false ) %>");
+$('.pagination a').attr('data-remote', 'true');

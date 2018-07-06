@@ -44,7 +44,6 @@ group :development, :test do
   gem 'pry-remote'
   gem 'pry-nav'
   gem 'pry-stack_explorer'
-
 end
 
 
@@ -95,7 +94,6 @@ gem 'will_paginate', '~> 3.1.0'
 
 #posgresql database
 gem 'pg'
-
 
 #add likes
 gem 'acts_as_votable', '~> 0.11.1'

@@ -59,7 +59,11 @@ class PostsController < ApplicationController
   # DELETE /posts/1.json
   def destroy
     @post.destroy
-    flash[:notice] = "Successfully destroyed post."
+    respond_to do |format|
+      format.html { redirect_to posts_url, success: 'Post was successfully destroyed.' }
+      format.json
+      format.js { render :template => 'posts/destroy.js.erb', :layout => false  }
+    end
   end
 
   def upvote

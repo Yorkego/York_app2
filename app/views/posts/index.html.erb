@@ -4,6 +4,13 @@
   <%= render @posts %>
 </div>
 
-<div class="digg_pagination">
+
+<div class="digg_pagination pagination">
 	<%= will_paginate @posts, :container => false %>
 </div>
+
+<script>
+$(function(){
+   $('.pagination a').attr('data-remote', 'true')
+});
+</script>
