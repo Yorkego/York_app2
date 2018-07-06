@@ -18,7 +18,7 @@ class Post < ApplicationRecord
 	  if search
 	    where("title ilike :q or content ilike :q", q: "%#{search}%")
 	  else
-	    all
+	    all.order(:id)
 	  end
 	end
 

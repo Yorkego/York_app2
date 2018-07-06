@@ -1,6 +1,8 @@
 <h1><%= t('.title')%></h1>
 
-<%= render @posts %>
+<div id="posts-list">
+  <%= render @posts %>
+</div>
 
 <div class="digg_pagination">
 	<%= will_paginate @posts, :container => false %>

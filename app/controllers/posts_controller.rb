@@ -2,6 +2,7 @@ class PostsController < ApplicationController
   before_action :set_post, only: [:show, :edit, :update, :destroy, :upvote]
   before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
   before_action :check_autorization, only: [:edit, :update, :destroy]
+  respond_to :js, :json, :html
 
   # GET /posts
   # GET /posts.json
@@ -58,15 +59,16 @@ class PostsController < ApplicationController
   # DELETE /posts/1.json
   def destroy
     @post.destroy
-    respond_to do |format|
-      format.html { redirect_to posts_url, success: 'Post was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+    flash[:notice] = "Successfully destroyed post."
   end
 
   def upvote
-    @post.upvote_by current_user
-    redirect_back fallback_location: root_path
+    if !current_user.liked? @post
+      @post.liked_by current_user
+    elsif current_user.liked? @post
+      @post.unliked_by current_user
+    end
+
   end
 
   private
