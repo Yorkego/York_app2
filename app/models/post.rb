@@ -14,14 +14,6 @@ class Post < ApplicationRecord
 	  User.unscoped { super }
 	end
 
-	def self.search(search)
-	  if search
-	    where("title ilike :q or content ilike :q", q: "%#{search}%")
-	  else
-	    all.order(:id)
-	  end
-	end
-
 	def all_tags
 		self.tags.map(&:name).join(', ')
 	end

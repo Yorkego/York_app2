@@ -103,3 +103,10 @@ gem 'rails_admin'
 
 #soft delete data
 gem "paranoia", "~> 2.2"
+
+#for search
+gem 'ransack'
+
+#datepicker
+gem 'momentjs-rails', '>= 2.9.0'
+gem 'bootstrap3-datetimepicker-rails', '~> 4.17.47'

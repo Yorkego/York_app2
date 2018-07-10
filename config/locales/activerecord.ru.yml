@@ -4,13 +4,15 @@ ru:
       post: 'Статья'
     attributes:
       post:
-        title: 'Название'        
+        title: 'Название'
         content: 'Содержание'
         all_tags: 'Теги'
+        search_in_posts: 'Поиск в постах'
+        search_in_tags: 'Поиск с тегами'
       category:
         name: 'Название'
         parent_id: 'Категория родитель'
     errors:
       messages:
         blank: 'не может быть пустым'
-    
+

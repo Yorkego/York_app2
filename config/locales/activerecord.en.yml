@@ -4,9 +4,11 @@ en:
       post: 'Post'
     attributes:
       post:
-        title: 'Title'        
+        title: 'Title'
         content: 'Content'
         all_tags: 'Tags'
+        search_in_posts: 'Search in posts'
+        search_in_tags: 'Search with tags'
       category:
         name: 'Name'
         parent_id: 'Parent category'

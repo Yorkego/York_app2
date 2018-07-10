@@ -20,6 +20,7 @@
 
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
   </head>
 
   <body>
@@ -63,12 +64,8 @@
                 <%= link_to "En", { locale: :en }, class: "nav-link" %>
               </li>
             </ul>
-
-          <%= form_tag posts_path, method: :get, class: 'form-inline my-2 my-lg-0 float-right' do %>
-              <%= text_field_tag :search, params[:search], placeholder: "Search Posts", class: "form-control mr-sm-2" %>
-              <%= submit_tag "Search", :name => nil, class: "btn btn-outline-success my-2 my-sm-0"%>
-          <% end %>
       </div>
+
       </div>
     </nav>
 
@@ -92,7 +89,6 @@
         </div>
         <div class="col-md-3">
 
-
           <div class="tag_cloud">
             <h2><%= t('activerecord.attributes.post.all_tags')%></h2>
             <% tag_cloud(Tag.counts, %w{tag1 tag2 tag3 tag4 tag5}) do |tag, css_class| %>
@@ -100,12 +96,37 @@
             <% end %>
           </div>
 
+          <br/>
+
+          <div class="search">
+            <h2><%= t('activerecord.attributes.post.search_in_posts')%></h2>
+            <%= search_form_for @search, class: 'form-group my-2 my-lg-0' do |f| %>
+              <div class="form-group">
+                <%= f.label :title_or_content_cont, "Key word in title or content" %>
+                <%= f.search_field :title_or_content_cont, class: "form-control mr-sm-2" %>
+              </div>
+
+              <div class="form-group">
+                <%= f.label :user_username_start, "Avtor of post" %>
+                <%= f.search_field :user_username_start,  class: "form-control mr-sm-2" %>
+              </div>
+
+              <div class="form-group">
+                <%= f.label :tags_id_in, "Tags" %>
+                <%= f.collection_select :tags_id_in, Tag.all, :id, :name, { }, { :multiple => true, class: "form-control mr-sm-2" } %>
+              </div>
+
+              <%= f.submit "Search", class: "btn btn-success my-2 my-sm-0"%>
+            <% end %>
+
+          </div>
+
 
         </div>
       </div>
 
-
      </div>
+
 
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>

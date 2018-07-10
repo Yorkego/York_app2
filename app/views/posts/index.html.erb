@@ -1,12 +1,16 @@
 <h1><%= t('.title')%></h1>
 
 <div id="posts-list">
-  <%= render @posts %>
+  <% if @posts.nil? %>
+    <h3> Posts not found </h3>
+  <% else %>
+    <%= render @posts %>
+  <% end %>
 </div>
 
 
 <div class="digg_pagination pagination">
-	<%= will_paginate @posts, :container => false %>
+	<%= will_paginate @posts, :container => false unless @posts.nil? %>
 </div>
 
 <script>
