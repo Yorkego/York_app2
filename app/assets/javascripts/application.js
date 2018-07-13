@@ -22,4 +22,8 @@
 //= require moment
 //= require bootstrap-datetimepicker
 
-
+$(document).on('change','.submit-on-change',function(){
+  $("#filter_category").val($("#filter_post_category").val());
+  $("#filter_direction").val($("#filter_post_decriment").val());
+  $(".search > form").submit();
+  });
