@@ -27,3 +27,12 @@ $(document).on('change','.submit-on-change',function(){
   $("#filter_direction").val($("#filter_post_decriment").val());
   $(".search > form").submit();
   });
+
+$(document).ready(function(){
+  $(".reply-button").click(function(){
+    $(this).next('.reply').show();
+    alert("broken");
+  });
+});
+
+

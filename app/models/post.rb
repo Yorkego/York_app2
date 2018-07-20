@@ -7,6 +7,7 @@ class Post < ApplicationRecord
 	has_many :taggings, dependent: :destroy
 	has_many :tags, through: :taggings
 	belongs_to :user
+  has_many :comments, dependent: :destroy
 
 	validates :title, :content, presence: true
 
@@ -18,6 +19,24 @@ class Post < ApplicationRecord
       joins(:user).merge(User.order("username #{direction}"))
     when 'votes'
       order("cached_votes_total #{direction}")
+    when 'lenght'
+      order("LENGTH(content) #{direction}")
+    when 'author_votes'
+      joins(:user).select('*, sum(user.posts.cached_votes_total) AS author_votes')
+      .order("author_votes #{direction}")
+        # find_by_sql("
+        #   SELECT *
+        #   FROM posts
+        #   JOIN (SELECT user_id, sum(cached_votes_total) AS author_votes
+        #         FROM posts
+        #         GROUP BY user_id) AS total ON posts.user_id = total.user_id
+        #   ORDER BY author_votes #{direction}")
+    when 'comment_counts'
+      group("posts.id").joins(:comments).select('posts.*, comments.count AS count')
+      .merge(Comment.order("count #{direction}"))
+    when 'comment_last'
+      group("posts.id").joins(:comments).select('posts.*, MAX(comments.created_at) AS last_comment')
+      .merge(Comment.order("last_comment #{direction}"))
     end
    }
 
@@ -26,7 +45,6 @@ class Post < ApplicationRecord
 	end
 
   def self.filter(params_filter)
-    #binding.pry
     return @posts = Post.all unless params_filter.present?
     @posts = Post.all
     @posts = @posts.where('title ILIKE ? OR content ILIKE ?', "%#{params_filter[:keyword]}%", "%#{params_filter[:keyword]}%") if params_filter[:keyword].present?

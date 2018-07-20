@@ -1,7 +1,14 @@
 <div class="col-md-9">
 
-    <%= select_tag "filter[post_category]", options_for_select([ ['Date', 'created_at'], ['Author', 'username'], ['Like', 'votes'] ], params[:filter].present? ? params[:filter][:category] : nil ), onchange: "submitOnChange()", class: 'submit-on-change' %>
-    <%= select_tag "filter[post_decriment]", options_for_select([ ['increase', 'ASC' ], ['decrease', 'DESC' ]],  params[:filter].present? ? params[:filter][:direction] : nil ), onchange: "submitOnChange()", class: 'submit-on-change'  %>
+    <%= select_tag "filter[post_category]", options_for_select([ ['Date', 'created_at'],
+     ['Author', 'username'], ['Like', 'votes'], ['Body lenght', 'lenght'],
+     ['Author like', 'author_votes'], ['Most comentable', 'comment_counts'],
+     ['Сomentable recently', 'comment_last'] ],
+      params[:filter].present? ? params[:filter][:category] : nil ),
+      onchange: "submitOnChange()", class: 'submit-on-change' %>
+    <%= select_tag "filter[post_decriment]", options_for_select([ ['increase', 'ASC' ],
+     ['decrease', 'DESC' ]],  params[:filter].present? ? params[:filter][:direction] : nil ),
+      onchange: "submitOnChange()", class: 'submit-on-change'  %>
 
   <h1><%= t('.title')%></h1>
 
@@ -37,7 +44,7 @@
 
   <div class="search">
     <h2><%= t('activerecord.attributes.post.search_in_posts')%></h2>
-    <%= form_tag(posts_path, method: :get) do %>
+    <%= form_tag(posts_path, method: :get, remote: true) do %>
       <%= hidden_field_tag "filter[category]", "created_at"   %>
       <%= hidden_field_tag "filter[direction]", "ASC" %>
       <%= label_tag "filter[keyword]" %>

@@ -1,0 +1,6 @@
+<%= form_for [@post, Comment.new] do |f| %>
+  <%= hidden_field_tag :parent_id, comment.id  %>
+  <%= hidden_field_tag :parent_type, "comment"  %>
+  <%= f.text_area :body, placeholder: "Add a Reply", class: "form-control" %>
+  <%= f.submit "Reply", class: "btn btn-primary"  %>
+<% end %>

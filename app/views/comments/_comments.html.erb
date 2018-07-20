@@ -1,0 +1,11 @@
+<% commentable.comments.each do |comment| %>
+
+<div class="well">
+  <p class="text-muted">Added by <strong><%= comment.user_id %></strong> on
+    <%= l(comment.created_at, format: '%d %B, %Y %H:%M:%S') %></p>
+
+  <blockquote>
+    <p><%= comment.body %></p>
+  </blockquote>
+</div>
+<% end %>

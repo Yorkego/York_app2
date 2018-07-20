@@ -8,7 +8,8 @@
 				|
 				<%= link_to t('common.edit'), edit_post_path(@post) %>
 				|
-				<%= link_to t('common.delete'), post_path(@post), method: :delete, data: { confirm: 'Are you sure?' } %>
+				<%= link_to t('common.delete'), post_path(@post), method: :delete,
+				data: { confirm: 'Are you sure?' } %>
 			<% end %>
 		</small>
 	</section>
@@ -35,4 +36,15 @@
 	</section>
 </article>
 
-<%= render 'disqus' %>
+<h3>Comments</h3>
+
+<%= form_for [@post, Comment.new] do |f| %>
+	<%= hidden_field_tag :parent_id, nil %>
+	<%= f.text_area :body, placeholder: "Add a comment", class: "form-control" %>
+	<%= f.submit "Add Comment", class: "btn btn-primary" %>
+<% end %>
+
+<ul>
+  <%= render(partial: 'comments/comment', collection: @post.comments.roots) %>
+</ul>
+

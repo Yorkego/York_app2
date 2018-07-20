@@ -1,0 +1,27 @@
+<li>
+  <div class="comment" id="comment<%= comment.id %>">
+    <div class="well">
+      <p class="text-muted">Added by <strong><%= comment.user.username %></strong> on
+        <%= l(comment.created_at, format: '%d %B, %Y %H:%M:%S') %></p>
+      <blockquote>
+        <p><%= comment.body %></p>
+      </blockquote>
+      <%= link_to 'Destroy Comment', [@post, comment],
+                  method: :delete, remote: true,
+                  data: { confirm: 'Are you sure?' }, class: "btn btn-primary" %>
+      <%= link_to 'Reply', '#', class: "btn btn-primary reply-button",
+                  remote: true %>
+    </div>
+
+    <%= form_for [@post, Comment.new], html: { id: comment.id, class: "reply" } do |f| %>
+      <%= hidden_field_tag :parent_id, comment.id %>
+      <%= f.text_area :body, placeholder: "Add a Reply", class: "form-control" %>
+      <%= f.submit "Reply", class: "btn btn-primary"  %>
+    <% end %>
+  </div>
+
+  <ul>
+      <%= render partial: 'comments/comment', collection: comment.children %>
+  </ul>
+
+</li>

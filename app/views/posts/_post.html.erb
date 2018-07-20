@@ -9,6 +9,10 @@
 				<%= link_to t('common.edit'), edit_post_path(post) %>
 				|
 				<%= link_to t('common.delete'), post, method: :delete, data: { confirm: 'Are you sure?' }, remote: :true %>
+				|
+				Comments: <%= post.comments.count %>
+				|
+				Last comment date: <%= post.comments.last.created_at %>
 
 		</small>
 	</section>
