@@ -11,7 +11,9 @@ class PostsController < ApplicationController
     # @posts= @search.result(distinct: true).paginate(:page => params[:page], :per_page => 5)
     # @posts = Post.simple_search(params[:keyword]).paginate(:page => params[:page], :per_page => 5)
 
-    @posts = Post.filter(params[:filter]).paginate(:page => params[:page], :per_page => 5)
+    @posts = Post.filter(params[:filter])
+    .paginate(page: params[:page], per_page: 5)
+    .includes(:last_comment, :tags, :user)
   end
 
   # GET /posts/1
@@ -66,7 +68,7 @@ class PostsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to posts_url, success: 'Post was successfully destroyed.' }
       format.json
-      format.js { render :template => 'posts/destroy.js.erb', :layout => false  }
+      format.js { render template: 'posts/destroy.js.erb', layout:false  }
     end
   end
 

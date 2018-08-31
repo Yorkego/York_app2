@@ -61,7 +61,7 @@
 									<div class="profile-info-name"> Last Online </div>
 
 									<div class="profile-info-value">
-										<span><%= time_ago_in_words(@user.current_sign_in_at) %> ago</span>
+										<span><%= @user.current_sign_in_at ? time_ago_in_words(@user.current_sign_in_at) : "never" %> ago</span>
 									</div>
 								</div>
 							</div>

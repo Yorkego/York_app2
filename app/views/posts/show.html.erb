@@ -38,13 +38,12 @@
 
 <h3>Comments</h3>
 
-<%= form_for [@post, Comment.new] do |f| %>
+<%= form_for [@post, Comment.new], remote: :true do |f| %>
 	<%= hidden_field_tag :parent_id, nil %>
 	<%= f.text_area :body, placeholder: "Add a comment", class: "form-control" %>
 	<%= f.submit "Add Comment", class: "btn btn-primary" %>
 <% end %>
 
-<ul>
-  <%= render(partial: 'comments/comment', collection: @post.comments.roots) %>
+<ul id="comments-list">
+  <%= render(partial: 'comments/comment', collection: @post.comments.roots, cached: true ) %>
 </ul>
-

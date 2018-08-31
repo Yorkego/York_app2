@@ -113,3 +113,6 @@ gem 'bootstrap3-datetimepicker-rails', '~> 4.17.47'
 
 #for tree of comments
 gem 'awesome_nested_set'
+
+#for seed fake users
+gem 'faker', '~> 1.9', '>= 1.9.1'

@@ -10,9 +10,9 @@
 				|
 				<%= link_to t('common.delete'), post, method: :delete, data: { confirm: 'Are you sure?' }, remote: :true %>
 				|
-				Comments: <%= post.comments.count %>
+				Comments: <%= post.comments.size %>
 				|
-				Last comment date: <%= post.comments.last.created_at %>
+				Last comment date: <%= post.comments.size == 0 ? "no comments" : post.last_comment.created_at %>
 
 		</small>
 	</section>
@@ -28,7 +28,7 @@
 		<div class="float-right">
 			<%= link_to (like_post_path(post)), method: :put, class: 'like-btn', remote: :true do %>
 				<div>
-					<span><i class="fa fa-thumb-up fa-3x">&#9829;</i> <span class="likes-count" id="<%= post.id %>"><%= post.get_upvotes.size %></span></span>
+					<span><i class="fa fa-thumb-up fa-3x">&#9829;</i> <span class="likes-count" id="<%= post.id %>"><%= post.cached_votes_total %></span></span>
 				</div>
 			<% end %>
 		</div>

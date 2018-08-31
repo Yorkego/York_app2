@@ -15,7 +15,12 @@ class CommentsController < ApplicationController
 
     if @comment.save
       @comment.move_to_child_of(Comment.find(params[:parent_id])) unless params[:parent_id].blank?
-      redirect_to session.delete(:return_to), notice: 'Your comment was successfully posted!'
+
+      respond_to do |format|
+        format.html { redirect_to session.delete(:return_to), notice: 'Your comment was successfully posted!' }
+        format.json
+        format.js
+      end
     else
       redirect_to session.delete(:return_to), notice: "Your comment wasn't posted!"
     end
@@ -29,7 +34,7 @@ class CommentsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to session.delete(:return_to), notice: 'Your comment was successfully deleted!' }
       format.json
-      format.js { render :template => 'comments/destroy.js.erb', :layout => false  }
+      format.js
     end
   end
 

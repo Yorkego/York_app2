@@ -23,15 +23,22 @@
 //= require bootstrap-datetimepicker
 
 $(document).on('change','.submit-on-change',function(){
-  $("#filter_category").val($("#filter_post_category").val());
-  $("#filter_direction").val($("#filter_post_decriment").val());
+  $("#filter_category").val($("#filter_cat").val());
+  $("#filter_direction").val($("#filter_decriment").val());
   $(".search > form").submit();
   });
 
 $(document).ready(function(){
   $(".reply-button").click(function(){
-    $(this).next('.reply').show();
-    alert("broken");
+    $(this).hide();
+    $(this).parent().next('.reply').show();
+  });
+});
+
+$(document).ready(function(){
+  $(".cancel-button").click(function(){
+    $(this).parent().parent().find(".reply-button").show();
+    $(this).parent().hide();
   });
 });
 

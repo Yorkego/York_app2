@@ -1,0 +1,54 @@
+<div class="col-md-9">
+  <%= select_tag "filter[cat]", options_for_select([ ['Date of create', 'created_at'],
+     ['Author name', 'username'], ['Most liked post', 'votes'],
+     ['Total likes', 'author_votes'], ['Most comentable post', 'comment_counts'],
+     ['Posted recently', 'comment_last'] ],
+      params[:filter].present? ? params[:filter][:category] : nil ),
+      onchange: "submitOnChange()", class: 'submit-on-change' %>
+  <%= select_tag "filter[decriment]", options_for_select([ ['increase', 'ASC' ],
+     ['decrease', 'DESC' ]],  params[:filter].present? ? params[:filter][:direction] : nil ),
+      onchange: "submitOnChange()", class: 'submit-on-change'  %>
+
+  <h1><%= t('.authors')%></h1>
+  <table class="table table-striped">
+    <thead class="thead-light">
+      <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Username</th>
+        <th scope="col">Post count</th>
+        <th scope="col">Total likes</th>
+        <th scope="col">Most liked post</th>
+        <th scope="col">Most commented post</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @authors.each do |author| %>
+        <tr>
+          <th scope="row"><%= author.id %></th>
+          <td><%= link_to author.username, user_path(author.id) %></td>
+          <td class="text-center"><%= author.posts_count %></td>
+          <td class="text-center"><%= author.sum_votes %></td>
+          <td class="text-center"><%= link_to author.most_liked_post.cached_votes_total, author.most_liked_post %></td>
+          <td class="text-center"><%= link_to author.most_comentable_post.comments.size, author.most_comentable_post  %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <div class="digg_pagination pagination">
+    <%= will_paginate @authors, :container => false %>
+  </div>
+</div>
+
+<div class="col-md-3">
+  <div class="search">
+    <h2><%= t('activerecord.attributes.post.search_in_author')%></h2>
+    <%= form_tag(users_path, method: :get) do %>
+      <%= hidden_field_tag "filter[category]", "created_at"   %>
+      <%= hidden_field_tag "filter[direction]", "ASC" %>
+      <%= label_tag "filter[username]" %>
+      <%= text_field_tag "filter[username]", params[:filter].present? ? params[:filter][:username] : nil , class: "form-control mr-sm-2" %>
+      <%= submit_tag 'Search', class: "btn btn-success my-2 my-sm-0" %>
+    <% end %>
+  </div>
+</div>
