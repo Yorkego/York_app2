@@ -25,7 +25,9 @@ class Post < ApplicationRecord
     when 'lenght'
       order("LENGTH(content) #{direction}")
     when 'author_votes'
-      joins(:user).select('*, sum(user.posts.cached_votes_total) AS author_votes')
+      joins("(SELECT user_id, sum(cached_votes_total) AS author_votes
+            FROM posts
+            GROUP BY user_id) AS total ON posts.user_id = total.user_id")
       .order("author_votes #{direction}")
         # find_by_sql("
         #   SELECT *
@@ -71,6 +73,6 @@ class Post < ApplicationRecord
   end
 
   def self.direction(params_filter)
-    params_filter && params_filter[:direction].present? ? params_filter[:direction] : "ASC"
+    params_filter && params_filter[:direction].present? ? params_filter[:direction] : "DESC"
   end
 end

@@ -1,0 +1,6 @@
+.flag {
+  border: 1px solid #dddddd;
+}
+#flag {
+  min-width: 4rem;
+}

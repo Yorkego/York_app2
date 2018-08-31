@@ -10,42 +10,35 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
 
-    <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-
-    <!-- Optional theme -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-
-    <!-- Latest compiled and minified JavaScript -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
   </head>
 
   <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <a class="navbar-brand" href="<%= posts_path %>">YorkApp</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
+    <nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="<%= root_path %>">YorkApp</a>
+        </div>
 
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
-          <li class="nav-item">
-            <a class="nav-link" href="<%= new_post_path %>">Add new post</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="<%= users_path %>">All authors</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="<%= rails_admin_path %>">Admin</a>
-          </li>
-        </ul>
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+          <ul class="nav navbar-nav">
+            <li class="<%= 'active' if current_page?(new_post_path ) %>"><a href="<%= new_post_path %>">Add new post</a></li>
+            <li class="<%= 'active' if current_page?(users_path) %>"><a href="<%= users_path %>">All authors</a></li>
+            <li class="<%= 'active' if current_page?(rails_admin_path) %>"><a href="<%= rails_admin_path %>">Admin</a></li>
 
-        <div class="navbar-nav float-right">
-          <ul class="navbar-nav">
-              <% if user_signed_in? %>
+          </ul>
+
+          <ul class="nav navbar-nav navbar-right">
+            <% if user_signed_in? %>
                 <li class="nav-item">
                   <%= link_to current_user.username, user_path(current_user.id), class: "nav-link"%>
                 </li>
@@ -60,18 +53,29 @@
                   <%= link_to t('common.sing_up'), new_user_registration_path, class: "nav-link" %>
                 </li>
               <% end %>
-              <li class="nav-item<%= " active" if I18n.locale == :ru %>">
-                <%= link_to "Рус", { locale: :ru }, class: "nav-link" %>
-              </li>
-              <li class="nav-item<%= " active" if I18n.locale == :en %>">
-                <%= link_to "En", { locale: :en }, class: "nav-link" %>
-              </li>
-            </ul>
-      </div>
-
-      </div>
+              <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                    <% if I18n.locale == :ru %>
+                      <span><%= image_tag "ru.svg", size: "24x16", class: "flag" %> Рус</span>
+                    <% elsif I18n.locale == :en %>
+                      <span><%= image_tag "en.svg", size: "24x16", class: "flag" %> En</span>
+                    <% end %>
+                    <span class="caret"></span></a>
+                  <ul class="dropdown-menu" id="flag">
+                    <li><%= link_to locale: :ru, class: "nav-link" do %>
+                          <span class=""><%= image_tag "ru.svg", size: "24x16", class: "flag" %> Рус</span>
+                        <% end %>
+                    </li>
+                    <li><%= link_to locale: :en, class: "nav-link" do %>
+                          <span class=""><%= image_tag "en.svg", size: "24x16", class: "flag" %> En</span>
+                        <% end %>
+                    </li>
+                  </ul>
+                </li>
+          </ul>
+        </div><!-- /.navbar-collapse -->
+      </div><!-- /.container-fluid -->
     </nav>
-
 
 
     <div class="container main">
