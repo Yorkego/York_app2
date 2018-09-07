@@ -3,7 +3,7 @@ class UsersController < ApplicationController
 
   def index
     @authors = User.with_summ_of_likes.filter(params[:filter])
-    .paginate(:page => params[:page], :per_page => 25)
+    .paginate(page: params[:page], per_page: 25)
     .includes(:comments, :most_liked_post, :most_comentable_post)
   end
 

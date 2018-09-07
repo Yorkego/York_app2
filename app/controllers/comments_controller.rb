@@ -8,7 +8,7 @@ class CommentsController < ApplicationController
   end
 
   def create
-    session[:return_to] ||= request.referer
+    # session[:return_to] ||= request.referer
     @comment = @post.comments.new comment_params
     @comment.user_id = current_user.id
     @comment.post_id = @post.id
@@ -17,22 +17,22 @@ class CommentsController < ApplicationController
       @comment.move_to_child_of(Comment.find(params[:parent_id])) unless params[:parent_id].blank?
 
       respond_to do |format|
-        format.html { redirect_to session.delete(:return_to), notice: 'Your comment was successfully posted!' }
+        format.html { redirect_to @post }
         format.json
         format.js
       end
     else
-      redirect_to session.delete(:return_to), notice: "Your comment wasn't posted!"
+      redirect_to @post
     end
   end
 
   def destroy
-    session[:return_to] ||= request.referer
+    # session[:return_to] ||= request.referer
     @comment = Comment.find(params[:id])
     @comment.destroy
 
     respond_to do |format|
-      format.html { redirect_to session.delete(:return_to), notice: 'Your comment was successfully deleted!' }
+      format.html { redirect_to @post }
       format.json
       format.js
     end

@@ -2,7 +2,7 @@
 
     <%= select_tag "filter[cat]", options_for_select([ ['Date', 'created_at'],
      ['Author', 'username'], ['Like', 'votes'], ['Body lenght', 'lenght'],
-     ['Author like', 'author_votes'], ['Most comentable', 'comment_counts'],
+     ['Most comentable', 'comment_counts'],
      ['Сomentable recently', 'comment_last'] ],
       params[:filter].present? ? params[:filter][:category] : nil ),
       onchange: "submitOnChange()", class: 'submit-on-change' %>

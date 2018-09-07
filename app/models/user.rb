@@ -41,9 +41,9 @@ class User < ApplicationRecord
     when 'author_votes'
       left_outer_joins(:posts).order("sum_votes #{direction}")
     when 'comment_counts'
-      left_outer_joins(:posts).order("COUNT(posts.comments_count) #{direction}")
+      left_outer_joins(:posts).order(Arel.sql("COUNT(posts.comments_count) #{direction}"))
     when 'comment_last'
-      left_outer_joins(:comments).order("MAX(comments.created_at) #{direction}")
+      left_outer_joins(:comments).order(Arel.sql("MAX(comments.created_at) #{direction} NULLS LAST"))
     end
    }
 
@@ -51,7 +51,8 @@ class User < ApplicationRecord
     return @authors = User.all.authors.order_authors(category(params_filter), direction(params_filter)) unless params_filter.present?
     @authors = User.all.authors
     @authors = @authors.where('username ILIKE ?', "%#{params_filter[:username]}%") if params_filter[:username].present?
-    @authors = @authors.order_authors(param_category(params_filter), param_direction(params_filter))
+    # byebug
+    @authors = @authors.order_authors(category(params_filter), direction(params_filter))
     @authors
   end
 

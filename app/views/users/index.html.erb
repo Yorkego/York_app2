@@ -2,7 +2,7 @@
   <%= select_tag "filter[cat]", options_for_select([ ['Date of create', 'created_at'],
      ['Author name', 'username'], ['Most liked post', 'votes'],
      ['Total likes', 'author_votes'], ['Most comentable post', 'comment_counts'],
-     ['Posted recently', 'comment_last'] ],
+     ['Commented recently', 'comment_last'] ],
       params[:filter].present? ? params[:filter][:category] : nil ),
       onchange: "submitOnChange()", class: 'submit-on-change' %>
   <%= select_tag "filter[decriment]", options_for_select([ ['increase', 'ASC' ],

@@ -45,5 +45,5 @@
 <% end %>
 
 <ul id="comments-list">
-  <%= render(partial: 'comments/comment', collection: @post.comments.roots, cached: true ) %>
+  <%= render(partial: 'comments/comment', collection: @post.comments.roots) %>
 </ul>
