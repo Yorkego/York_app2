@@ -53,7 +53,8 @@ class Post < ApplicationRecord
     @posts = Post.all
     @posts = @posts.where('title ILIKE ? OR content ILIKE ?', "%#{params_filter[:keyword]}%", "%#{params_filter[:keyword]}%") if params_filter[:keyword].present?
     @posts = @posts.joins(:user).where(users: { username: params_filter[:author]}) if params_filter[:author].present?
-    @posts = @posts.joins(:tags).where(tags: { id: params_filter[:tag_ids] } ).having('count(tags.id) = ?', params_filter[:tag_ids].count).group("posts.id") if params_filter[:tag_ids].present?
+    @posts = @posts.joins(:tags).where(tags: { id: params_filter[:tag_ids] } )
+            .having('count(tags.id) = ?', params_filter[:tag_ids].count).group("posts.id, comments.id, tags.id, users.id") if params_filter[:tag_ids].present?
     @posts = @posts.order_by(params_filter[:category], params_filter[:direction])
     @posts
   end

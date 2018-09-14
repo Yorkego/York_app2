@@ -33,8 +33,10 @@ RSpec.describe User, type: :model do
   #     @user2 = create(:user)
   #     @post1 = @user2.posts.create(attributes_for(:post, comments_count: 2))
   #     @post2 = @user2.posts.create(attributes_for(:post))
-  #     @post1.comments.create()
-  #     @post1.comments.create()
+  #     # @post1.comments.create()
+  #     # @post1.comments.create()
+  #     @post1.comments.create(attributes_for(:comment, user_id: @user1))
+  #     @post1.comments.create(attributes_for(:comment, user_id: @user1))
   #   end
   #   it "return users that have posts" do
   #     # byebug
