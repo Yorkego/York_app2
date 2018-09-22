@@ -23,7 +23,8 @@
 	</section>
 
 	<section class="footer-content">
-		<%= raw post.tags.map(&:name).map{ |t| link_to t, tag_path(t), class: 'badge badge-primary' }.join(' ') %>
+		<%= raw post.tag_list.map{ |t| link_to t, tag_path(t), class: 'badge badge-primary' }.join(' ') %>
+
 
 		<div class="float-right">
 			<%= link_to (like_post_path(post)), method: :put, class: 'like-btn', remote: :true do %>

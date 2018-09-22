@@ -4,6 +4,7 @@ Rails.application.routes.draw do
 
 
 	  root "posts#index"
+    get 'tags/:tag', to: 'posts#index', as: :tag
 
 	  devise_for :users
 	  resources :posts do
@@ -16,7 +17,6 @@ Rails.application.routes.draw do
       resources :comments
     end
 	  resources :users
-	  resources :tags, only: [:show]
     resources :friendships, only: [:create, :update, :destroy]
 	end
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html

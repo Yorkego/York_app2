@@ -32,27 +32,35 @@
   </script>
 </div>
 
- <div class="col-md-3">
-  <div class="tag_cloud">
+  <div class="col-md-3">
     <h2><%= t('activerecord.attributes.post.all_tags')%></h2>
-    <% tag_cloud(Tag.counts, %w{tag1 tag2 tag3 tag4 tag5}) do |tag, css_class| %>
-      <%= link_to tag.name, tag_path(tag.name), class: css_class %>
+    <% tag_cloud(@tags, %w(css1 css2 css3 css4)) do |tag, css_class| %>
+      <%= link_to tag.name, tag_path(tag.id), :class => css_class %>
     <% end %>
-  </div>
 
-  <br/>
+
 
   <div class="search">
     <h2><%= t('activerecord.attributes.post.search_in_posts')%></h2>
     <%= form_tag(posts_path, method: :get, remote: true) do %>
       <%= hidden_field_tag "filter[category]", "created_at"   %>
       <%= hidden_field_tag "filter[direction]", "ASC" %>
-      <%= label_tag "filter[keyword]" %>
-      <%= text_field_tag "filter[keyword]", params[:filter].present? ? params[:filter][:keyword] : nil , class: "form-control mr-sm-2" %>
-      <%= label_tag "filter[author]" %>
-      <%= text_field_tag "filter[author]", params[:filter].present? ? params[:filter][:author] : nil, class: "form-control mr-sm-2" %>
-      <%= label_tag "filter[tag_ids]" %>
-      <%= select_tag "filter[tag_ids]", options_from_collection_for_select(Tag.all, "id", "name", params[:filter].present? ? params[:filter][:tag_ids] : nil), multiple: true, class: "form-control mr-sm-2" %>
+      <div class="form-group">
+        <%= label_tag "filter[keyword]", "Keyword" %>
+        <%= text_field_tag "filter[keyword]", params[:filter].present? ? params[:filter][:keyword] : nil , class: "form-control mr-sm-2" %>
+      </div>
+      <div class="form-group">
+        <%= label_tag "filter[author]", "Author" %>
+        <%= text_field_tag "filter[author]", params[:filter].present? ? params[:filter][:author] : nil, class: "form-control mr-sm-2" %>
+      </div>
+
+      <div class="form-group">
+        <%= label_tag "filter[tag_list]", "Tags" %>
+        <%= select_tag "filter[tag_list]", options_from_collection_for_select(@tags,
+         "name", "name", params[:filter].present? ? params[:filter][:tag_list] : nil), multiple: true, class: "form-control mr-sm-2" %>
+      </div>
+
+
       <%= submit_tag 'Search', class: "btn btn-success my-2 my-sm-0" %>
     <% end %>
   </div>

@@ -19,6 +19,5 @@
   tags = "Ruby"
   user.posts.create!( title: title,
                       content: content,
-                      all_tags: tags,
                       user_id: user.id)
 end

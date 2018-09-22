@@ -7,13 +7,16 @@ class PostsController < ApplicationController
   # GET /posts
   # GET /posts.json
   def index
-    # @search = Post.ransack(params[:q])
-    # @posts= @search.result(distinct: true).paginate(:page => params[:page], :per_page => 5)
-    # @posts = Post.simple_search(params[:keyword]).paginate(:page => params[:page], :per_page => 5)
+    if params[:tag]
+      @posts = Post.tagged_with(params[:tag])
+      .paginate(page: params[:page], per_page: 5)
+    else
+      @posts = Post.filter(params[:filter])
+      .paginate(page: params[:page], per_page: 5)
+      .includes(:last_comment, :user)
+    end
 
-    @posts = Post.filter(params[:filter])
-    .paginate(page: params[:page], per_page: 5)
-    .includes(:last_comment, :tags, :user)
+    @tags = Post.tag_counts_on(:tags)
   end
 
   # GET /posts/1
@@ -89,7 +92,7 @@ class PostsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def post_params
-      params.require(:post).permit(:title, :content, :image, :all_tags, :keyword, :author)
+      params.require(:post).permit(:title, :content, :image, :tag_list, :keyword, :author)
     end
 
     def check_autorization

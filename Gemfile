@@ -116,3 +116,6 @@ gem 'awesome_nested_set'
 
 #for seed fake users
 gem 'faker', '~> 1.9', '>= 1.9.1'
+
+#add tags
+gem 'acts-as-taggable-on', '~> 6.0'

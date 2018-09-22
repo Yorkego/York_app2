@@ -1,13 +1,13 @@
 class Post < ApplicationRecord
 	acts_as_paranoid
 	acts_as_votable
+  acts_as_taggable
 
 	mount_uploader :image, ImageUploader
 
-	has_many :taggings, dependent: :destroy
-	has_many :tags, through: :taggings
 	belongs_to :user, counter_cache: true
   has_many :comments, dependent: :destroy
+
   has_one :last_comment, -> { created_at_desc }, class_name: 'Comment'
 
 	validates :title, :content, presence: true
@@ -53,21 +53,12 @@ class Post < ApplicationRecord
     @posts = Post.all
     @posts = @posts.where('title ILIKE ? OR content ILIKE ?', "%#{params_filter[:keyword]}%", "%#{params_filter[:keyword]}%") if params_filter[:keyword].present?
     @posts = @posts.joins(:user).where(users: { username: params_filter[:author]}) if params_filter[:author].present?
-    @posts = @posts.joins(:tags).where(tags: { id: params_filter[:tag_ids] } )
-            .having('count(tags.id) = ?', params_filter[:tag_ids].count).group("posts.id, comments.id, tags.id, users.id") if params_filter[:tag_ids].present?
+    @posts = @posts.tagged_with(params_filter[:tag_list]) if params_filter[:tag_list].present?
     @posts = @posts.order_by(params_filter[:category], params_filter[:direction])
     @posts
   end
 
-	def all_tags
-		self.tags.map(&:name).join(', ')
-	end
 
-	def all_tags=(names)
-    self.tags = names.split(',').map do |name|
-      Tag.where(name: name.strip).first_or_create!
-    end
-  end
 
   def self.category(params_filter)
     params_filter && params_filter[:category].present? ? params_filter[:category] : 'created_at'

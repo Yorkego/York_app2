@@ -13,23 +13,26 @@
 
   <div class="field form-group">
     <%= form.label :title %>
-    <%= form.text_area :title, class: 'form-control' %>
+    <%= form.text_field :title, class: 'form-control' %>
   </div>
-  
+
   <div class="field form-group">
     <%= form.label :content %>
-    <%= form.text_area :content, class: 'form-control'  %>
+    <input id="x" type="hidden" name="content">
+    <trix-editor class="trix-content" input="x"></trix-editor>
   </div>
 
   <div class="field form-group">
-    <%= form.label :all_tags %>
-    <%= form.text_field :all_tags, class: 'form-control'  %>
+    <%= form.label :tag_list, "Tags (separated by commas)" %>
+    <%= form.text_field :tag_list, class: 'form-control'  %>
   </div>
 
+
   <div class="field form-group">
+    <%= form.label :image %>
     <%= form.file_field :image, class: 'form-control'  %>
   </div>
- 
+
   <div class="actions form-group">
     <%= form.submit t('common.save'), class: 'btn btn-primary' %>
     <%= link_to t('common.back'), :back, class: 'btn btn-outline-secondary' %>
