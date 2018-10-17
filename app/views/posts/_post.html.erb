@@ -1,6 +1,6 @@
 <article class="post" id="post<%= post.id %>">
 	<section class="post-head">
-		<h2><%= link_to post.title, post_path(post) %></h2>
+		<h2><%= link_to post.title, post_path(post.id) %></h2>
 		<small>
 			<time><%= post.created_at.to_date.strftime("%d %B, %Y")%></time>
 			posted by <%= link_to post.user.username, user_path(post.user.id) %>
@@ -19,7 +19,7 @@
 
 	<section class="post-content clearfix">
 		<%= image_tag post.image.url(:thumb), class: 'img-thumbnail thumb' if post.image? %>
-		<%= post.content %>
+		<%= raw post.content %>
 	</section>
 
 	<section class="footer-content">

@@ -18,7 +18,7 @@
 
   <div class="field form-group">
     <%= form.label :content %>
-    <input id="x" type="hidden" name="content">
+    <%= form.hidden_field "content", id: "x" %>
     <trix-editor class="trix-content" input="x"></trix-editor>
   </div>
 

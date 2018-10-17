@@ -14,8 +14,6 @@ RSpec.describe Post, type: :model do
 
   context 'assotiation tests' do
     it { should belong_to(:user).counter_cache(true) }
-    it { should have_many(:taggings).dependent(:destroy) }
-    it { should have_many(:tags).through(:taggings)  }
     it { should have_many(:comments).dependent(:destroy) }
     it { should have_one(:last_comment).class_name('Comment') }
   end
